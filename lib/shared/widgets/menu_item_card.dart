@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
+import '../../core/constants/api_constants.dart';
 import '../../data/models/menu_item_model.dart';
+
+String _imageUrl(MenuItemModel item) {
+  if (item.image == null) return '';
+  if (item.image!.startsWith('http')) return item.image!;
+  final base = ApiConstants.baseUrl.replaceAll('/api', '');
+  return '$base/storage/${item.image}';
+}
 
 class MenuItemCard extends StatelessWidget {
   final MenuItemModel item;
@@ -10,6 +18,7 @@ class MenuItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final url = _imageUrl(item);
 
     return Card(
       child: Padding(
@@ -18,19 +27,18 @@ class MenuItemCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  padding: const EdgeInsets.all(16),
-                  child: Icon(
-                    _categoryIcon(item.category),
-                    size: 40,
-                    color: theme.colorScheme.primary,
-                  ),
-                ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: url.isNotEmpty
+                    ? Image.network(
+                        url,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        errorBuilder: (_, __, ___) => _imagePlaceholder(theme),
+                        loadingBuilder: (_, child, progress) =>
+                            progress == null ? child : _imagePlaceholder(theme),
+                      )
+                    : _imagePlaceholder(theme),
               ),
             ),
             const SizedBox(height: 8),
@@ -50,7 +58,7 @@ class MenuItemCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '\$${item.price.toStringAsFixed(2)}',
+                  '${item.price.toStringAsFixed(2)} Ks',
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: theme.colorScheme.primary,
@@ -65,6 +73,22 @@ class MenuItemCard extends StatelessWidget {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _imagePlaceholder(ThemeData theme) {
+    return Container(
+      decoration: BoxDecoration(
+        color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Center(
+        child: Icon(
+          _categoryIcon(item.category),
+          size: 40,
+          color: theme.colorScheme.primary,
         ),
       ),
     );

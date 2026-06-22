@@ -3,6 +3,8 @@ import '../../../data/models/menu_item_model.dart';
 import '../../../data/repositories/menu_repository.dart';
 import '../../../data/services/menu_service.dart';
 
+const _sentinel = Object();
+
 final menuProvider = StateNotifierProvider<MenuNotifier, MenuState>((ref) {
   return MenuNotifier(ref.read(menuServiceProvider));
 });
@@ -29,7 +31,7 @@ class MenuState {
     List<MenuItemModel>? filteredItems,
     bool? isLoading,
     String? error,
-    String? selectedCategory,
+    Object? selectedCategory = _sentinel,
     String? searchQuery,
   }) {
     return MenuState(
@@ -37,7 +39,7 @@ class MenuState {
       filteredItems: filteredItems ?? this.filteredItems,
       isLoading: isLoading ?? this.isLoading,
       error: error,
-      selectedCategory: selectedCategory,
+      selectedCategory: identical(selectedCategory, _sentinel) ? this.selectedCategory : selectedCategory as String?,
       searchQuery: searchQuery ?? this.searchQuery,
     );
   }

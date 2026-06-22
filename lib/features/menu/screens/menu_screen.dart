@@ -94,26 +94,34 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
           ),
           if (state.categories.isNotEmpty)
             SizedBox(
-              height: 44,
-              child: ListView(
+              height: 48,
+              child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                children: [
-                  FilterChip(
-                    label: const Text('All'),
-                    selected: state.selectedCategory == null,
-                    onSelected: (_) => ref.read(menuProvider.notifier).filterByCategory(null),
-                  ),
-                  const SizedBox(width: 8),
-                  ...state.categories.map((cat) => Padding(
-                        padding: const EdgeInsets.only(right: 8),
-                        child: FilterChip(
-                          label: Text(cat),
-                          selected: state.selectedCategory == cat,
-                          onSelected: (_) => ref.read(menuProvider.notifier).filterByCategory(cat),
-                        ),
-                      )),
-                ],
+                child: Row(
+                  children: [
+                    FilterChip(
+                      label: const Text('All', style: TextStyle(fontWeight: FontWeight.w600)),
+                      selected: state.selectedCategory == null,
+                      selectedColor: Theme.of(context).colorScheme.primaryContainer,
+                      checkmarkColor: Theme.of(context).colorScheme.onPrimaryContainer,
+                      showCheckmark: true,
+                      onSelected: (_) => ref.read(menuProvider.notifier).filterByCategory(null),
+                    ),
+                    const SizedBox(width: 8),
+                    ...state.categories.map((cat) => Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: FilterChip(
+                            label: Text(cat, style: const TextStyle(fontWeight: FontWeight.w600)),
+                            selected: state.selectedCategory == cat,
+                            selectedColor: Theme.of(context).colorScheme.primaryContainer,
+                            checkmarkColor: Theme.of(context).colorScheme.onPrimaryContainer,
+                            showCheckmark: true,
+                            onSelected: (_) => ref.read(menuProvider.notifier).filterByCategory(cat),
+                          ),
+                        )),
+                  ],
+                ),
               ),
             ),
           Expanded(
@@ -125,7 +133,7 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
           ? FloatingActionButton.extended(
               onPressed: () => context.push('/cart?tableId=${widget.tableId}'),
               icon: const Icon(Icons.shopping_cart),
-              label: Text('\$${cartState.subtotal.toStringAsFixed(2)}'),
+              label: Text('${cartState.subtotal.toStringAsFixed(2)} Ks'),
             )
           : null,
     );

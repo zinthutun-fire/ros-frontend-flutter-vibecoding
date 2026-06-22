@@ -101,7 +101,7 @@ class CartScreen extends ConsumerWidget {
                               style: theme.textTheme.titleMedium,
                             ),
                             Text(
-                              '\$${cartState.subtotal.toStringAsFixed(2)}',
+                              '${cartState.subtotal.toStringAsFixed(2)} Ks',
                               style: theme.textTheme.titleLarge?.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),

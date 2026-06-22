@@ -75,7 +75,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                     children: [
                       Icon(Icons.receipt, size: 16, color: theme.colorScheme.primary),
                       const SizedBox(width: 6),
-                      Text('Total: \$${order.total.toStringAsFixed(2)}',
+                      Text('Total: ${order.total.toStringAsFixed(2)} Ks',
                           style: theme.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                             color: theme.colorScheme.primary,

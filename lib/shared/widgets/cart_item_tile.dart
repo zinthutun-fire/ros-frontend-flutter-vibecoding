@@ -39,7 +39,7 @@ class CartItemTile extends StatelessWidget {
                         style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        '\$${item.price.toStringAsFixed(2)} each',
+                        '${item.price.toStringAsFixed(2)} Ks each',
                         style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey),
                       ),
                     ],
@@ -63,7 +63,7 @@ class CartItemTile extends StatelessWidget {
                 SizedBox(
                   width: 80,
                   child: Text(
-                    '\$${item.subtotal.toStringAsFixed(2)}',
+                    '${item.subtotal.toStringAsFixed(2)} Ks',
                     textAlign: TextAlign.right,
                     style: theme.textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.bold,

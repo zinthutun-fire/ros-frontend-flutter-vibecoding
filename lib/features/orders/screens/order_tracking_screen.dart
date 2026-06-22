@@ -169,7 +169,7 @@ class _OrderTrackingScreenState extends ConsumerState<OrderTrackingScreen> {
                       ],
                       Icon(Icons.receipt, size: 16, color: theme.colorScheme.primary),
                       const SizedBox(width: 4),
-                      Text('\$${order.total.toStringAsFixed(2)}',
+                      Text('${order.total.toStringAsFixed(2)} Ks',
                           style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold)),
                     ],
                   ),

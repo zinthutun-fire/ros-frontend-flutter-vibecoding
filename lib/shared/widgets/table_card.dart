@@ -40,7 +40,6 @@ class TableCard extends StatelessWidget {
           InkWell(
             onTap: onTap,
             child: Container(
-              height: double.infinity,
               decoration: BoxDecoration(
                 border: Border(
                   left: BorderSide(color: color, width: 4),
@@ -82,10 +81,10 @@ class TableCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const Spacer(),
+                    const Expanded(child: SizedBox.shrink()),
                     if (table.currentOrder != null)
                       Text(
-                        '\$${table.currentOrder!.total.toStringAsFixed(2)}',
+                        '${table.currentOrder!.total.toStringAsFixed(2)} Ks',
                         style: TextStyle(fontWeight: FontWeight.bold, color: color, fontSize: 13),
                       ),
                     if (table.isMerged)

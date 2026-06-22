@@ -173,7 +173,7 @@ class _TableDetailScreenState extends ConsumerState<TableDetailScreen> {
                       ),
                     const SizedBox(height: 8),
                     Text(
-                      'Total: \$${table.currentOrder!.total.toStringAsFixed(2)}',
+                      'Total: ${table.currentOrder!.total.toStringAsFixed(2)} Ks',
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: theme.colorScheme.primary,
@@ -401,7 +401,7 @@ class _TableDetailScreenState extends ConsumerState<TableDetailScreen> {
         title: const Text('Request Invoice'),
         content: Text(
           'Send invoice request for Table ${table!.tableNo} '
-          '(${table.currentOrder!.orderNo} - \$${table.currentOrder!.total.toStringAsFixed(2)}) to cashier?',
+          '(${table.currentOrder!.orderNo} - ${table.currentOrder!.total.toStringAsFixed(2)} Ks) to cashier?',
         ),
         actions: [
           TextButton(
