@@ -115,7 +115,19 @@ class TableNotifier extends StateNotifier<TableState> {
 
   Future<void> closeTable(int tableId) async {
     await _repository.closeTable(tableId);
-    updateTableStatus(tableId, TableStatus.available);
+    final tables = state.tables.map((t) {
+      if (t.id == tableId) {
+        return t.copyWith(
+          status: TableStatus.available,
+          currentOrder: null,
+          paymentStatus: null,
+          isMerged: false,
+          mergedWithTables: null,
+        );
+      }
+      return t;
+    }).toList();
+    _applyFilter(tables);
   }
 
   void updateTableStatus(int tableId, TableStatus status) {

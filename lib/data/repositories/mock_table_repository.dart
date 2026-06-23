@@ -176,6 +176,8 @@ class MockTableRepository implements TableRepository {
         status: TableStatus.available,
         currentOrder: null,
         paymentStatus: null,
+        isMerged: false,
+        mergedWithTables: null,
       );
     }
   }
